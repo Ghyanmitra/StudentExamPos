@@ -13,8 +13,8 @@ class Exams extends Model
     protected $fillable  = ['exam_name'];
     public $sortable = ['id','exam_name'];
 
-    public function students(){
-        return $this->belongsTo('App\Students');
-    }
+    // public function students(){
+    //     return $this->belongsTo('App\Students');
+    // }
 
 }

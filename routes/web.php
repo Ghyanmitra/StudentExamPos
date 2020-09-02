@@ -30,4 +30,9 @@ Route::post('/addexam', 'ExamsController@store')->name('addexam');
 Route::get('/examdelete/{id}', 'ExamsController@destroy')->name('deletexam');
 
 //Student Exam route
-Route::get('/studentexam', 'StudentExamsController@index');
+Route::get('/studentexam', 'StudentExamsController@index')->name('studentexam');
+Route::get('/deletstudentexam/{id}', 'StudentExamsController@destroy')->name('studentexam_delete');
+Route::get('/assign', 'StudentExamsController@create')->name('assign');
+Route::post('/assignstudent', 'StudentExamsController@store')->name('assignstudent');
+Route::post('/search', 'StudentExamsController@searchmethod')->name('searchroute');
+

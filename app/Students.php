@@ -12,7 +12,7 @@ class Students extends Model
     protected $guarded = ['name, email'];
     public $sortable = ['id','name', 'email'];
 
-    public function exams(){
-        return $this->hasMany('App\Exams');
-    }
+    // public function exams(){
+    //     return $this->hasMany('App\Exams');
+    // }
 }

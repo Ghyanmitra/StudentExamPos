@@ -15,20 +15,12 @@ class CreateStudentExamsTable extends Migration
     {
         Schema::create('student_exams', function (Blueprint $table) {
             $table->id();
-            /*$table->integer('user_id')->unsigned(); 
-            $table->integer('exam_id')->unsigned();  
-            $table->foreign('user_id')->references('id')->on('students');
-            $table->foreign('exam_id')->references('id')->on('exams');*/
-
-            $table->bigInteger('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('students')->onDelete('cascade');
-
-            $table->bigInteger('exam_id')->unsigned()->index();
-            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
-
-
-            
+            $table->bigInteger('user_id')->nullable(false)->change();
+            $table->bigInteger('exam_id')->nullable(false)->change();
+            $table->string('name');
+            $table->string('exam_name');
             $table->timestamps();
+
         });
     }
 
