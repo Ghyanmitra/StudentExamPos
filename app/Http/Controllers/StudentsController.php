@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\StudentExams;
 use App\Students;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
+use DB;
 
 class StudentsController extends Controller
 {
@@ -74,9 +76,17 @@ class StudentsController extends Controller
         // echo json_encode($request->all());
         $student=Students::find($request->id);
 
+        $sname=$student->name;
+        $sid=$student->id;
+
         $student->name=$request->name;
         $student->email=$request->email;
         $student->update();
+
+        DB::table('student_exams')
+        ->where('name', $sname)
+        ->update(['name' => $request->name]);
+
         return redirect('/')->with('success', 'Student Updated!');
 
     }

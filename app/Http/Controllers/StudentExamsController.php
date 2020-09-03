@@ -53,19 +53,39 @@ class StudentExamsController extends Controller
             'exam_id'=>'required'
         ]);
 
+        if($validator->fails()) {
+            return redirect('/studentexam')->withErrors($validator);
+        }
+
         $student=Students::findOrFail($request->sid);
         $exam=Exams::findOrFail($request->exam_id);
 
-        // $student->exams()->save($exam);
-        $studentexam = new StudentExams([
-            'user_id' => $student->id,
-            'exam_id' => $exam->id,
-            'name' => $student->name,
-            'exam_name' => $exam->exam_name
-        ]);
+        $result= StudentExams::where('exam_name', $exam->exam_name)->Where('name', $student->name)->exists();
 
-        $studentexam->save();
-        return redirect('/studentexam')->with('success', 'Student Assigned to Exam!');
+        // dd([
+        //     'user_id'=> $student->id,
+        //     'exam_id'=> $exam->id,
+        //     'name' => $student->name,
+        //     'exam_name' => $exam->exam_name
+        // ]);
+
+        if(!$result){
+
+            $studentexam = new StudentExams([
+                // 'user_id'=> $student->id,
+                // 'exam_id'=> $exam->id,
+                'name' => $student->name,
+                'exam_name' => $exam->exam_name
+            ]);
+
+            $studentexam->save();
+            $message=  'Student Assigned to Exam!';
+
+        }else{
+            $message='Student already assigned exam';
+        }
+
+        return redirect('/studentexam')->with('success', $message);
 
     }
 
